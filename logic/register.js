@@ -1,50 +1,78 @@
-// register.js
-
 function registerUser() {
     // Obtener los valores de los campos de entrada
     var userName = document.getElementById("userName").value;
     var userEmail = document.getElementById("userEmail").value;
     var userPassword = document.getElementById("userPassword").value;
 
-    // Cargar el archivo JSON
-    fetch('userData.json')
-        .then(response => response.json())
-        .then(users => {
-            // Verificar si el nombre de usuario ya existe
-            var existingUser = users.find(function(user) {
-                return user.name === userName;
-            });
+    // Obtener los datos de usuarios del localStorage
+    var storedData = localStorage.getItem('../persistence/userData.json');
 
-            // Si el nombre de usuario ya existe, mostrar un mensaje de error y salir
-            if (existingUser) {
-                alert("El nombre de usuario ya existe. Por favor, elija otro.");
-                return;
-            }
+    // Verificar si hay datos almacenados
+    if (storedData) {
+        // Convertir el JSON a un objeto JavaScript
+        var users = JSON.parse(storedData);
 
-            // Si no existe, proceder con el registro
-            // Crear un nuevo usuario
-            var newUser = {
-                name: userName,
-                email: userEmail,
-                password: userPassword
-            };
+        // Verificar si el nombre de usuario ya existe
+        var existingUser = users.find(function(user) {
+            return user.name === userName;
+        });
 
-            // Agregar el nuevo usuario a la lista
-            users.push(newUser);
+        // Si el nombre de usuario ya existe, mostrar un mensaje de error y salir
+        if (existingUser) {
+            alert("El nombre de usuario ya existe. Por favor, elija otro.");
+            return;
+        }
+    } else {
+        // Si no hay datos almacenados, inicializar la lista de usuarios
+        var users = [];
+    }
 
-            // Convertir la lista de usuarios a formato JSON
-            var userJSON = JSON.stringify(users);
+    // Crear un nuevo usuario
+    var newUser = {
+        name: userName,
+        email: userEmail,
+        password: userPassword
+    };
 
-            // Guardar el JSON actualizado en el archivo
-            saveUserData(userJSON);
+    // Agregar el nuevo usuario a la lista
+    users.push(newUser);
 
-            // Redirigir a una página de confirmación o a otra página según sea necesario
-            alert("Usuario registrado con exito");
-        })
-        .catch(error => console.error('Error al cargar el archivo JSON:', error));
+    // Convertir la lista de usuarios a formato JSON
+    var userJSON = JSON.stringify(users);
+
+    // Guardar los datos actualizados en el localStorage
+    localStorage.setItem('userData', userJSON);
+
+    // Redirigir a una página de confirmación o a otra página según sea necesario
+    alert("Usuario registrado con éxito");
 }
 
-// Función para guardar el JSON actualizado en el archivo
-function saveUserData(data) {
-    // Aquí puedes escribir la lógica para guardar el JSON actualizado en el archivo
+
+function loginUser() {
+    var userName = document.getElementById("userName").value;
+    var userPassword = document.getElementById("userPassword").value;
+
+
+    if (userName === '' || userPassword === '') {
+        alert('you must enter data in all fields')
+    }
+    else {
+        var storedData = localStorage.getItem('userData');
+
+        if (storedData) {
+            
+            var users = JSON.parse(storedData);
+
+            var foundUser = users.find(function(user) {
+                return user.name === userName && user.password === userPassword;
+            });
+
+            if (foundUser) {
+                alert("Usuario autenticado, !Bienvenido, " + userName + "!");
+            }
+            else {
+                alert("Nombre de usuario o contraseña incorrectos. Por favor, registrate o intentalo nuevamente")
+            }
+        }
+    }
 }
