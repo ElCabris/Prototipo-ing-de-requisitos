@@ -32,7 +32,7 @@ body {
 
 .form-register {
     width: 400px;
-    height: 380px;
+    height: 730px;
     background: #049DBF;
     margin: auto;
     margin-top: 180px;
@@ -132,4 +132,22 @@ body {
 
 .register-button:hover, .login-button:hover {
     background-color: #1E5799;
+}
+
+.radio-group {  /* Style the container for radio buttons */
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.radio-group label {  /* Style the labels for radio buttons */
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.radio-group input[type="radio"] {  /* Style the radio buttons themselves */
+  margin-right: 5px;
+}
+
+.controls option {
+  padding: 5px 10px;
 }
