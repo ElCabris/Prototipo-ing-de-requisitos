@@ -32,10 +32,10 @@ body {
 
 .form-register {
     width: 400px;
-    height:630px;
+    height:760px;
     background: #049DBF;
     margin: auto;
-    margin-top: 180px;
+    margin-top: 100px;
     box-shadow: 7px 13px 37px #000;
     padding: 20px 30px;
     border-top: 4px solid #2573D9;
@@ -103,7 +103,7 @@ body {
 .welcome-section {
     width: 400px;
     margin: auto;
-    margin-top: 180px;
+    margin-top: 100px;
     text-align: center;
     color: #fff;
 }
@@ -151,3 +151,16 @@ body {
 .controls option {
   padding: 5px 10px;
 }
+
+.form-register-worker {
+    width: 400px;
+    height: 360px;
+    background: #049DBF;
+    margin: auto;
+    margin-top: 180px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border-top: 4px solid #2573D9;
+    color: #F2F2F2;
+}
+
