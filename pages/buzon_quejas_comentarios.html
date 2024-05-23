@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buzón de Quejas o Comentarios</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <section class="form-register">
+        <h1>Buzón de Quejas o Comentarios</h1>
+        <form action="ruta_a_tu_backend_para_comentarios" method="post">
+            <label for="tipoServicio">Tipo de Servicio Adquirido</label>
+            <input class="controls" type="text" name="tipoServicio" id="tipoServicio" placeholder="Tipo de Servicio" required>
+            
+            <label for="comentario">Comentario</label>
+            <textarea class="controls" name="comentario" id="comentario" placeholder="Escribe tu comentario aquí" required></textarea>
+            
+            <input class="buttons" type="submit" value="Enviar">
+        </form>
+    </section>
+</body>
+</html>
+
