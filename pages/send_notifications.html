@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Notificaciones</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="notification-container">
+        <header>
+            <h1>Enviar Notificaciones por Correo Electrónico</h1>
+        </header>
+
+        <form class="notification-form">
+            <!-- Selección de Destinatarios -->
+            <div class="recipient-selection">
+                <h2>Seleccionar Destinatarios</h2>
+                <label><input type="checkbox" id="select-all"> Seleccionar Todos</label>
+                <div class="recipients-list">
+                    <label><input type="checkbox" name="recipient" value="cliente1@example.com"> Juan Pérez (cliente1@example.com)</label>
+                    <label><input type="checkbox" name="recipient" value="cliente2@example.com"> María López (cliente2@example.com)</label>
+                    <label><input type="checkbox" name="recipient" value="cliente3@example.com"> Pedro González (cliente3@example.com)</label>
+                    <label><input type="checkbox" name="recipient" value="cliente4@example.com"> Ana García (cliente4@example.com)</label>
+                </div>
+            </div>
+
+            <!-- Plantilla de Notificación -->
+            <div class="notification-template">
+                <h2>Plantilla de Notificación</h2>
+                <textarea id="email-template" rows="10">
+Estimado/a [Nombre del Cliente],
+
+Nos gustaría informarle que su factura número [Número de Factura] con un monto de [Monto] tiene una fecha de vencimiento de [Fecha de Vencimiento].
+
+Puede acceder a su factura y realizar el pago a través del siguiente enlace: [Enlace de Factura]
+
+Por favor, realice el pago a la brevedad para evitar cargos adicionales.
+
+Atentamente,
+[Nombre de la Empresa]
+                </textarea>
+            </div>
+
+            <!-- Personalización de Notificación -->
+            <div class="personalization">
+                <h2>Personalización de Notificación</h2>
+                <label for="custom-message">Mensaje Adicional:</label>
+                <textarea id="custom-message" rows="4"></textarea>
+            </div>
+
+            <!-- Envío de Notificaciones -->
+            <div class="send-notifications">
+                <button type="button" id="send-button">Enviar Notificaciones</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript para la funcionalidad de selección de todos los destinatarios
+        document.getElementById('select-all').addEventListener('change', function(e) {
+            const checkboxes = document.querySelectorAll('.recipients-list input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = e.target.checked;
+            });
+        });
+
+        // JavaScript para el envío de notificaciones (simulación)
+        document.getElementById('send-button').addEventListener('click', function() {
+            const recipients = [];
+            document.querySelectorAll('.recipients-list input[type="checkbox"]:checked').forEach(checkbox => {
+                recipients.push(checkbox.value);
+            });
+
+            const template = document.getElementById('email-template').value;
+            const customMessage = document.getElementById('custom-message').value;
+
+            if (recipients.length === 0) {
+                alert('Por favor, seleccione al menos un destinatario.');
+                return;
+            }
+
+            // Aquí iría la lógica para enviar los correos electrónicos utilizando la información obtenida
+
+            alert('Notificaciones enviadas a: ' + recipients.join(', '));
+        });
+    </script>
+</body>
+</html>
+
