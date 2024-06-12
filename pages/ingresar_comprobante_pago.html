@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Comprobantes de Pago</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        .comprobante-container {
+            margin-top: 20px;
+            text-align: center; /* Alineación de contenido centrado */
+            max-width: 600px;
+            margin: auto;
+        }
+        .comprobante-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .comprobante-link {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .comprobante-link:hover {
+            text-decoration: underline;
+        }
+        #comprobante-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            margin-top: 20px;
+            display: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-right: 10px; /* Espacio entre los botones */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Comprobantes de Pago</h1>
+    <div class="comprobante-container" id="comprobante-list">
+        <h2>Comprobantes Cargados</h2>
+        <ul id="lista-comprobantes"></ul>
+        <div>
+            <button onclick="verUltimoComprobante()">Ver Último Comprobante</button>
+            <button onclick="imprimirComprobante()">Imprimir Último Comprobante</button>
+        </div>
+    </div>
+    <iframe id="comprobante-iframe"></iframe>
+
+    <script>
+        // Comprobantes de pago ficticios (puedes añadir más si lo deseas)
+        var comprobantes = [
+            { name: "Comprobante de Pago 1", url: "https://example.com/comprobante1.pdf" },
+            { name: "Comprobante de Pago 2", url: "https://example.com/comprobante2.pdf" },
+            { name: "Comprobante de Pago 3", url: "https://example.com/comprobante3.pdf" }
+        ];
+
+        function mostrarLista() {
+            var lista = document.getElementById('lista-comprobantes');
+            lista.innerHTML = '';
+            comprobantes.forEach((comprobante, index) => {
+                var li = document.createElement('li');
+                li.className = 'comprobante-item';
+                li.innerHTML = `
+                    <a href="#" class="comprobante-link" onclick="verComprobante(${index})">
+                        ${comprobante.name}
+                    </a>
+                `;
+                lista.appendChild(li);
+            });
+        }
+
+        function verComprobante(index) {
+            var iframe = document.getElementById('comprobante-iframe');
+            iframe.src = comprobantes[index].url;
+            iframe.style.display = 'block';
+        }
+
+        function verUltimoComprobante() {
+            if (comprobantes.length > 0) {
+                verComprobante(comprobantes.length - 1);
+            } else {
+                alert("No hay comprobantes cargados.");
+            }
+        }
+
+        function imprimirComprobante() {
+            // Simulación de la función de imprimir
+            alert("Imprimir comprobante: " + comprobantes[comprobantes.length - 1].name);
+            // Aquí iría el código real para imprimir, como window.print() en una implementación completa.
+        }
+        
+        // Mostrar la lista al cargar la página
+        window.onload = function() {
+            mostrarLista();
+        };
+    </script>
+</body>
+</html>
+
