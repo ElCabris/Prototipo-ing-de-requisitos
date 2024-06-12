@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociar Cuenta Bancaria</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="bank-account-container">
+        <header>
+            <h1>Asociar Cuenta Bancaria</h1>
+        </header>
+
+        <form class="bank-account-form" id="bank-account-form">
+            <!-- Validación de la Cuenta Bancaria -->
+            <div class="account-validation">
+                <h2>Ingrese la Información de la Cuenta Bancaria</h2>
+                <label for="account-number">Número de Cuenta:</label>
+                <input type="text" id="account-number" class="controls" required>
+
+                <label for="bank-name">Nombre del Banco:</label>
+                <input type="text" id="bank-name" class="controls" required>
+
+                <label for="account-holder">Nombre del Titular de la Cuenta:</label>
+                <input type="text" id="account-holder" class="controls" required>
+            </div>
+
+            <!-- Configuración de Pagos Automáticos -->
+            <div class="auto-payment-setup">
+                <h2>Configuración de Pagos Automáticos</h2>
+                <label><input type="checkbox" id="auto-payment" class="controls"> Activar Pagos Automáticos</label>
+            </div>
+
+            <!-- Confirmación de Asociación -->
+            <div class="confirmation">
+                <button type="submit" id="associate-button">Asociar Cuenta Bancaria</button>
+            </div>
+        </form>
+
+        <!-- Notificación de Asociación y Configuración -->
+        <div class="notification" id="notification" style="display: none;">
+            <h2>Cuenta Bancaria Asociada con Éxito</h2>
+            <p>La cuenta bancaria ha sido asociada correctamente.</p>
+            <p>Los pagos automáticos han sido activados. El próximo pago automático se realizará el <span id="next-payment-date"></span>.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('bank-account-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Simulación de validación de la cuenta bancaria
+            const accountNumber = document.getElementById('account-number').value;
+            const bankName = document.getElementById('bank-name').value;
+            const accountHolder = document.getElementById('account-holder').value;
+
+            if (!accountNumber || !bankName || !accountHolder) {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+
+            // Aquí iría la lógica para validar la cuenta bancaria y asociarla
+
+            // Simulación de confirmación y configuración de pagos automáticos
+            const autoPayment = document.getElementById('auto-payment').checked;
+            const notification = document.getElementById('notification');
+            const nextPaymentDate = new Date();
+            nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+            document.getElementById('next-payment-date').innerText = nextPaymentDate.toLocaleDateString();
+
+            notification.style.display = 'block';
+            alert('La cuenta bancaria ha sido asociada correctamente.');
+        });
+    </script>
+</body>
+</html>
+
