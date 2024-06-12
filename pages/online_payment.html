@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago de Servicio</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="payment-container">
+        <header>
+            <h1>Pagar Servicio</h1>
+        </header>
+
+        <!-- Acceso a Opciones de Pago Online -->
+        <div class="payment-options">
+            <h2>Opciones de Pago Online</h2>
+            <button class="payment-button" data-method="Mercado Pago">Mercado Pago</button>
+            <button class="payment-button" data-method="PayPal">PayPal</button>
+            <button class="payment-button" data-method="Efecty">Efecty</button>
+            <button class="payment-button" data-method="Gana">Gana</button>
+        </div>
+
+        <!-- Selección de Método de Pago -->
+        <div id="payment-method-form" class="payment-method-form" style="display: none;">
+            <h2>Pago con <span id="payment-method-name"></span></h2>
+            <form id="payment-form">
+                <!-- Instrucciones específicas del método de pago -->
+                <div id="payment-instructions">
+                    <!-- Aquí se mostrarán las instrucciones específicas para el método de pago seleccionado -->
+                </div>
+
+                <button type="submit" class="confirm-payment-button">Confirmar Pago</button>
+            </form>
+        </div>
+
+        <!-- Confirmación del Pago Exitoso -->
+        <div id="payment-confirmation" class="payment-confirmation" style="display: none;">
+            <h2>Pago Exitoso</h2>
+            <p>Su pago ha sido procesado correctamente.</p>
+            <p>El estado de su factura ha sido actualizado.</p>
+            <p>Se ha enviado una notificación de confirmación de pago a su correo electrónico.</p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.payment-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                document.getElementById('payment-method-name').innerText = method;
+
+                // Mostrar instrucciones específicas según el método de pago
+                const instructions = document.getElementById('payment-instructions');
+                instructions.innerHTML = '';
+                if (method === 'Mercado Pago') {
+                    instructions.innerHTML = '<p>Siga las instrucciones de Mercado Pago para completar su transacción.</p>';
+                } else if (method === 'PayPal') {
+                    instructions.innerHTML = '<p>Será redirigido a PayPal para completar su transacción.</p>';
+                } else if (method === 'Efecty') {
+                    instructions.innerHTML = '<p>Visite el punto de pago Efecty más cercano con el código de transacción.</p>';
+                } else if (method === 'Gana') {
+                    instructions.innerHTML = '<p>Visite el punto de pago Gana más cercano con el código de transacción.</p>';
+                }
+
+                document.getElementById('payment-method-form').style.display = 'block';
+                document.getElementById('payment-confirmation').style.display = 'none';
+            });
+        });
+
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Aquí iría la lógica para procesar el pago con el método seleccionado
+
+            // Simulación de confirmación del pago exitoso
+            document.getElementById('payment-method-form').style.display = 'none';
+            document.getElementById('payment-confirmation').style.display = 'block';
+            alert('El pago ha sido procesado correctamente.');
+        });
+    </script>
+</body>
+</html>
+
