@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Cuenta Bancaria</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="bank-account-container">
+        <header>
+            <h1>Eliminar Cuenta Bancaria</h1>
+        </header>
+
+        <!-- Opción de Eliminación de Cuenta Bancaria -->
+        <div class="delete-option">
+            <h2>Cuenta Bancaria Asociada</h2>
+            <p>Número de Cuenta: **** **** **** 1234</p>
+            <p>Nombre del Banco: Banco Ejemplo</p>
+            <p>Nombre del Titular: Juan Pérez</p>
+            <button id="delete-button" class="delete-button">Eliminar Cuenta Bancaria</button>
+        </div>
+
+        <!-- Confirmación de Eliminación de Cuenta Bancaria -->
+        <div id="confirmation-dialog" class="confirmation-dialog" style="display: none;">
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Está seguro de que desea eliminar esta cuenta bancaria? Esta acción detendrá los pagos automáticos futuros.</p>
+            <button id="confirm-delete-button" class="confirm-button">Confirmar Eliminación</button>
+            <button id="cancel-delete-button" class="cancel-button">Cancelar</button>
+        </div>
+
+        <!-- Notificación de Eliminación de Cuenta Bancaria -->
+        <div id="notification" class="notification" style="display: none;">
+            <h2>Cuenta Bancaria Eliminada</h2>
+            <p>La cuenta bancaria ha sido eliminada correctamente y los pagos automáticos han sido detenidos.</p>
+            <p>Detalles sobre pagos pendientes: No hay pagos pendientes.</p>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar el diálogo de confirmación
+        document.getElementById('delete-button').addEventListener('click', function() {
+            document.getElementById('confirmation-dialog').style.display = 'block';
+        });
+
+        // Confirmar la eliminación de la cuenta bancaria
+        document.getElementById('confirm-delete-button').addEventListener('click', function() {
+            // Aquí iría la lógica para eliminar la cuenta bancaria y detener los pagos automáticos
+
+            document.getElementById('confirmation-dialog').style.display = 'none';
+            document.getElementById('notification').style.display = 'block';
+        });
+
+        // Cancelar la eliminación de la cuenta bancaria
+        document.getElementById('cancel-delete-button').addEventListener('click', function() {
+            document.getElementById('confirmation-dialog').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+
