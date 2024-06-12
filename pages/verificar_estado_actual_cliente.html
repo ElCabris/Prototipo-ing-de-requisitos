@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Facturas de Usuarios</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .invoice-section {
+            width: 100%;
+            background: transparent;
+            padding: 20px;
+        }
+
+        .invoice-section h1, .invoice-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .filter form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter input, .filter select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .filter button {
+            padding: 10px 15px;
+            border: none;
+            background: #049DBF;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter button:hover {
+            background: #2573D9;
+        }
+
+        .invoices table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .invoices th, .invoices td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .invoices th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="invoice-section">
+            <h1>Estado de Facturas de Usuarios</h1>
+
+            <!-- Filtrar Facturas -->
+            <div class="filter">
+                <h2>Filtrar Facturas</h2>
+                <form id="filterForm">
+                    <div style="flex: 1;">
+                        <label for="filterDateFrom">Fecha Desde:</label>
+                        <input type="date" id="filterDateFrom" name="filterDateFrom">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="filterDateTo">Fecha Hasta:</label>
+                        <input type="date" id="filterDateTo" name="filterDateTo">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="filterStatus">Estado:</label>
+                        <select id="filterStatus" name="filterStatus">
+                            <option value="">Todos</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="pagada">Pagada</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <button type="button" onclick="applyFilters()">Aplicar Filtros</button>
+                        <button type="button" onclick="resetFilters()">Resetear Filtros</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabla de Facturas -->
+            <div class="invoices">
+                <h2>Facturas</h2>
+                <table id="invoiceTable">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ejemplo de Datos -->
+                        <tr>
+                            <td>Juan Pérez</td>
+                            <td>2024-06-01</td>
+                            <td>$100</td>
+                            <td>Pendiente</td>
+                        </tr>
+                        <tr>
+                            <td>María López</td>
+                            <td>2024-06-10</td>
+                            <td>$200</td>
+                            <td>Pagada</td>
+                        </tr>
+                        <tr>
+                            <td>Carlos García</td>
+                            <td>2024-06-05</td>
+                            <td>$150</td>
+                            <td>Pendiente</td>
+                        </tr>
+                        <tr>
+                            <td>Ana Torres</td>
+                            <td>2024-06-15</td>
+                            <td>$300</td>
+                            <td>Pagada</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para aplicar filtros
+        function applyFilters() {
+            const dateFrom = document.getElementById('filterDateFrom').value;
+            const dateTo = document.getElementById('filterDateTo').value;
+            const status = document.getElementById('filterStatus').value.toLowerCase();
+            const rows = document.querySelectorAll('#invoiceTable tbody tr');
+
+            rows.forEach(row => {
+                const rowDate = row.cells[1].textContent;
+                const rowStatus = row.cells[3].textContent.toLowerCase();
+                let showRow = true;
+
+                if (dateFrom && rowDate < dateFrom) {
+                    showRow = false;
+                }
+                if (dateTo && rowDate > dateTo) {
+                    showRow = false;
+                }
+                if (status && rowStatus !== status) {
+                    showRow = false;
+                }
+
+                row.style.display = showRow ? '' : 'none';
+            });
+        }
+
+        // Función para resetear filtros
+        function resetFilters() {
+            document.getElementById('filterForm').reset();
+            applyFilters(); // Reaplicar filtros para mostrar todos los datos
+        }
+    </script>
+</body>
+</html>
