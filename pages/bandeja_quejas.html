@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeja de Entrada de Formularios</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        #form-container {
+            max-width: 800px;
+            margin: auto;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-details {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            margin-top: 10px;
+        }
+        .form-details.active {
+            display: block;
+        }
+        .response-container {
+            margin-top: 20px;
+        }
+        #response-message {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .filters {
+            margin-bottom: 10px;
+        }
+        .filters select {
+            padding: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bandeja de Entrada de Formularios de Contacto</h1>
+    <div id="form-container">
+        <div class="filters">
+            <label for="filter">Filtrar por tipo de consulta:</label>
+            <select id="filter" onchange="filtrarFormularios()">
+                <option value="todos">Todos</option>
+                <option value="queja">Queja</option>
+                <option value="consulta">Consulta</option>
+                <option value="solicitud">Solicitud</option>
+            </select>
+        </div>
+        <table id="form-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                    <th>Asunto</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los formularios recibidos -->
+            </tbody>
+        </table>
+        <div class="form-details" id="form-details">
+            <h2>Detalles del Formulario</h2>
+            <p><strong>Nombre:</strong> <span id="form-name"></span></p>
+            <p><strong>Correo Electrónico:</strong> <span id="form-email"></span></p>
+            <p><strong>Asunto:</strong> <span id="form-subject"></span></p>
+            <p><strong>Mensaje:</strong></p>
+            <textarea id="form-message" rows="5" placeholder="Escribe tu respuesta aquí"></textarea>
+            <div class="response-container">
+                <button onclick="enviarRespuesta()">Enviar Respuesta</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación de formularios de contacto recibidos
+        var formularios = [
+            { nombre: "Juan", email: "juan@example.com", asunto: "Consulta sobre producto", fecha: "2024-06-12", tipo: "consulta", mensaje: "" },
+            { nombre: "María", email: "maria@example.com", asunto: "Queja por servicio", fecha: "2024-06-11", tipo: "queja", mensaje: "" },
+            { nombre: "Pedro", email: "pedro@example.com", asunto: "Solicitud de información", fecha: "2024-06-10", tipo: "solicitud", mensaje: "" }
+            // Puedes añadir más formularios según sea necesario
+        ];
+
+        function mostrarFormularios() {
+            var tableBody = document.querySelector('#form-table tbody');
+            tableBody.innerHTML = '';
+            formularios.forEach((formulario, index) => {
+                var row = `<tr>
+                    <td>${formulario.nombre}</td>
+                    <td>${formulario.email}</td>
+                    <td>${formulario.asunto}</td>
+                    <td>${formulario.fecha}</td>
+                    <td><button onclick="mostrarDetalles(${index})">Ver Detalles</button></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function mostrarDetalles(index) {
+            var formDetails = document.getElementById('form-details');
+            var form = formularios[index];
+            document.getElementById('form-name').innerText = form.nombre;
+            document.getElementById('form-email').innerText = form.email;
+            document.getElementById('form-subject').innerText = form.asunto;
+            document.getElementById('form-message').value = form.mensaje;
+            formDetails.classList.add('active');
+            if (form.tipo === 'queja') {
+                document.getElementById('form-message').readOnly = false;
+            } else {
+                document.getElementById('form-message').readOnly = true;
+            }
+        }
+
+        function enviarRespuesta() {
+            var index = getSelectedFormIndex();
+            if (index === -1) {
+                alert("Por favor selecciona un formulario para responder.");
+                return;
+            }
+            var responseMessage = document.getElementById('form-message').value;
+            formularios[index].mensaje = responseMessage; // Guardar la respuesta en los datos simulados
+            alert("Respuesta guardada: " + responseMessage);
+            // Aquí iría el código real para enviar la respuesta al cliente
+        }
+
+        function filtrarFormularios() {
+            var filtro = document.getElementById('filter').value;
+            var tableBody = document.querySelector('#form-table tbody');
+            tableBody.innerHTML = '';
+            formularios.forEach((formulario, index) => {
+                if (filtro === 'todos' || formulario.tipo === filtro) {
+                    var row = `<tr>
+                        <td>${formulario.nombre}</td>
+                        <td>${formulario.email}</td>
+                        <td>${formulario.asunto}</td>
+                        <td>${formulario.fecha}</td>
+                        <td><button onclick="mostrarDetalles(${index})">Ver Detalles</button></td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                }
+            });
+        }
+
+        function getSelectedFormIndex() {
+            var formDetails = document.getElementById('form-details');
+            var formIndex = -1;
+            if (formDetails.classList.contains('active')) {
+                var formName = document.getElementById('form-name').innerText;
+                formularios.forEach((formulario, index) => {
+                    if (formulario.nombre === formName) {
+                        formIndex = index;
+                    }
+                });
+            }
+            return formIndex;
+        }
+
+        // Inicializar la página
+        window.onload = function() {
+            mostrarFormularios();
+        };
+    </script>
+</body>
+</html>
+
+
