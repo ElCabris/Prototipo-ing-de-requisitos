@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Formularios de Contacto</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        #form-container {
+            max-width: 800px;
+            margin: auto;
+            text-align: left;
+            background-color: #fff; /* Fondo blanco para evitar que se vean afectadas por imágenes detrás */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1); /* Sombra ligera para la tabla */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .filters {
+            margin-bottom: 10px;
+        }
+        .filters select, .filters input[type="date"] {
+            padding: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Historial de Formularios de Contacto</h1>
+    <div id="form-container">
+        <div class="filters">
+            <label for="filter-type">Filtrar por tipo de consulta:</label>
+            <select id="filter-type" onchange="filtrarFormularios()">
+                <option value="todos">Todos</option>
+                <option value="queja">Queja</option>
+                <option value="consulta">Consulta</option>
+                <option value="solicitud">Solicitud</option>
+            </select>
+            <label for="filter-date">Filtrar por fecha:</label>
+            <input type="date" id="filter-date" onchange="filtrarFormularios()">
+        </div>
+        <table id="form-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                    <th>Asunto</th>
+                    <th>Fecha</th>
+                    <th>Tipo de Consulta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los formularios recibidos -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Simulación de formularios de contacto recibidos
+        var formularios = [
+            { nombre: "Juan", email: "juan@example.com", asunto: "Consulta sobre producto", fecha: "2024-06-12", tipo: "consulta" },
+            { nombre: "María", email: "maria@example.com", asunto: "Queja por servicio", fecha: "2024-06-11", tipo: "queja" },
+            { nombre: "Pedro", email: "pedro@example.com", asunto: "Solicitud de información", fecha: "2024-06-10", tipo: "solicitud" },
+            { nombre: "Ana", email: "ana@example.com", asunto: "Consulta sobre envío", fecha: "2024-06-09", tipo: "consulta" },
+            { nombre: "Carlos", email: "carlos@example.com", asunto: "Queja por facturación", fecha: "2024-06-08", tipo: "queja" },
+            { nombre: "Luisa", email: "luisa@example.com", asunto: "Solicitud de devolución", fecha: "2024-06-07", tipo: "solicitud" }
+            // Puedes añadir más formularios según sea necesario
+        ];
+
+        function mostrarFormularios() {
+            var tableBody = document.querySelector('#form-table tbody');
+            tableBody.innerHTML = '';
+            formularios.forEach((formulario) => {
+                var row = `<tr>
+                    <td>${formulario.nombre}</td>
+                    <td>${formulario.email}</td>
+                    <td>${formulario.asunto}</td>
+                    <td>${formulario.fecha}</td>
+                    <td>${formulario.tipo}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function filtrarFormularios() {
+            var filtroTipo = document.getElementById('filter-type').value;
+            var filtroFecha = document.getElementById('filter-date').value;
+            var tableBody = document.querySelector('#form-table tbody');
+            tableBody.innerHTML = '';
+            formularios.forEach((formulario) => {
+                if ((filtroTipo === 'todos' || formulario.tipo === filtroTipo) &&
+                    (filtroFecha === '' || formulario.fecha === filtroFecha)) {
+                    var row = `<tr>
+                        <td>${formulario.nombre}</td>
+                        <td>${formulario.email}</td>
+                        <td>${formulario.asunto}</td>
+                        <td>${formulario.fecha}</td>
+                        <td>${formulario.tipo}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                }
+            });
+        }
+
+        // Inicializar la página
+        window.onload = function() {
+            mostrarFormularios();
+        };
+    </script>
+</body>
+</html>
