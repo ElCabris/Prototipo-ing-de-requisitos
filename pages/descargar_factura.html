@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Factura de Servicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button-container {
+            text-align: right;
+        }
+        .button-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        .invoice-details {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Descargar Factura de Servicio</h1>
+        
+        <div class="form-group">
+            <label for="contract-id">ID del Contrato:</label>
+            <input type="text" id="contract-id" placeholder="Ingrese el ID del contrato">
+        </div>
+
+        <div class="form-group">
+            <label for="service-type">Tipo de Servicio:</label>
+            <input type="text" id="service-type" placeholder="Ingrese el tipo de servicio">
+        </div>
+
+        <div class="button-container">
+            <button onclick="generarFactura()">Generar Factura</button>
+            <button onclick="descargarFactura()">Descargar Factura</button>
+        </div>
+
+        <div class="invoice-details" id="invoice-details">
+            <!-- Aquí se mostrarán los detalles de la factura -->
+        </div>
+    </div>
+
+    <script>
+        function generarFactura() {
+            var contractId = document.getElementById('contract-id').value;
+            var serviceType = document.getElementById('service-type').value;
+
+            var currentDate = new Date().toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            var invoiceDetails = document.getElementById('invoice-details');
+            invoiceDetails.innerHTML = `
+                <h2>Factura</h2>
+                <p><strong>ID del Contrato:</strong> ${contractId}</p>
+                <p><strong>Tipo de Servicio:</strong> ${serviceType}</p>
+                <p><strong>Fecha:</strong> ${currentDate}</p>
+                <table style="width:100%; margin-top: 10px;">
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Servicio de ${serviceType}</td>
+                        <td>1</td>
+                        <td>$200</td>
+                        <td>$200</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px;"><strong>Total a Pagar:</strong> $200</p>
+            `;
+        }
+
+        function descargarFactura() {
+            // No realiza ninguna acción, solo se agrega para cumplir con la solicitud
+        }
+    </script>
+</body>
+</html>
