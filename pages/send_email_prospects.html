@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Correos a Prospectos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="email-container">
+        <header>
+            <h1>Enviar Correos de Anuncios a Prospectos</h1>
+        </header>
+
+        <!-- Selección de Destinatarios -->
+        <div class="recipient-selection">
+            <h2>Seleccionar Destinatarios</h2>
+            <div class="recipient-filters">
+                <label for="group-select">Grupo:</label>
+                <select id="group-select" class="controls">
+                    <option value="all">Todos</option>
+                    <option value="group1">Grupo 1</option>
+                    <option value="group2">Grupo 2</option>
+                </select>
+            </div>
+            <div class="recipient-list">
+                <label><input type="checkbox" class="recipient-checkbox" value="prospect1"> Prospecto 1</label><br>
+                <label><input type="checkbox" class="recipient-checkbox" value="prospect2"> Prospecto 2</label><br>
+                <label><input type="checkbox" class="recipient-checkbox" value="prospect3"> Prospecto 3</label><br>
+                <label><input type="checkbox" class="recipient-checkbox" value="prospect4"> Prospecto 4</label><br>
+                <label><input type="checkbox" class="recipient-checkbox" value="prospect5"> Prospecto 5</label><br>
+            </div>
+        </div>
+
+        <!-- Personalización del Contenido del Correo -->
+        <div class="email-content">
+            <h2>Personalizar Contenido del Correo</h2>
+            <form id="email-form">
+                <label for="email-subject">Asunto:</label>
+                <input type="text" id="email-subject" class="controls" placeholder="Asunto del correo"><br>
+                
+                <label for="email-body">Cuerpo del Correo:</label>
+                <textarea id="email-body" class="controls" rows="10" placeholder="Escribe el contenido del correo aquí..."></textarea><br>
+                
+                <label for="email-image">Agregar Imagen:</label>
+                <input type="file" id="email-image" class="controls"><br>
+                
+                <label for="email-link">Agregar Enlace:</label>
+                <input type="text" id="email-link" class="controls" placeholder="http://example.com"><br>
+                
+                <button type="button" id="preview-button" class="controls">Previsualizar</button>
+            </form>
+        </div>
+
+        <!-- Previsualización del Correo -->
+        <div id="email-preview" class="email-preview" style="display: none;">
+            <h2>Previsualización del Correo</h2>
+            <div id="preview-subject"></div>
+            <div id="preview-body"></div>
+            <div id="preview-image"></div>
+            <div id="preview-link"></div>
+            <button type="button" id="send-email-button" class="controls">Enviar Correo</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('preview-button').addEventListener('click', function() {
+            const subject = document.getElementById('email-subject').value;
+            const body = document.getElementById('email-body').value;
+            const image = document.getElementById('email-image').files[0];
+            const link = document.getElementById('email-link').value;
+
+            document.getElementById('preview-subject').innerText = `Asunto: ${subject}`;
+            document.getElementById('preview-body').innerText = body;
+
+            if (image) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview-image').innerHTML = `<img src="${e.target.result}" alt="Imagen" style="max-width: 100%;">`;
+                };
+                reader.readAsDataURL(image);
+            } else {
+                document.getElementById('preview-image').innerHTML = '';
+            }
+
+            if (link) {
+                document.getElementById('preview-link').innerHTML = `<a href="${link}" target="_blank">Enlace: ${link}</a>`;
+            } else {
+                document.getElementById('preview-link').innerHTML = '';
+            }
+
+            document.getElementById('email-preview').style.display = 'block';
+        });
+
+        document.getElementById('send-email-button').addEventListener('click', function() {
+            // Aquí iría la lógica para enviar el correo a los prospectos seleccionados
+
+            alert('El correo ha sido enviado correctamente.');
+        });
+    </script>
+</body>
+</html>
+
