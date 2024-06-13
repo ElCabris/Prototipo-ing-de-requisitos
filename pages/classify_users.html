@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificar Usuarios</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="classification-container">
+        <header>
+            <h1>Clasificar Usuarios</h1>
+        </header>
+
+        <!-- Selección de Parámetros -->
+        <div class="parameter-selection">
+            <h2>Seleccionar Parámetros</h2>
+            <form id="classification-form">
+                <div class="parameter-group">
+                    <label for="age-range">Edad:</label>
+                    <select id="age-range" class="controls">
+                        <option value="all">Todos</option>
+                        <option value="18-25">18-25</option>
+                        <option value="26-35">26-35</option>
+                        <option value="36-45">36-45</option>
+                        <option value="46-60">46-60</option>
+                        <option value="60+">60+</option>
+                    </select>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="stratum">Estrato:</label>
+                    <select id="stratum" class="controls">
+                        <option value="all">Todos</option>
+                        <option value="1">Estrato 1</option>
+                        <option value="2">Estrato 2</option>
+                        <option value="3">Estrato 3</option>
+                        <option value="4">Estrato 4</option>
+                        <option value="5">Estrato 5</option>
+                        <option value="6">Estrato 6</option>
+                    </select>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="location">Ubicación:</label>
+                    <select id="location" class="controls">
+                        <option value="all">Todos</option>
+                        <option value="north">Norte</option>
+                        <option value="south">Sur</option>
+                        <option value="east">Este</option>
+                        <option value="west">Oeste</option>
+                        <option value="central">Centro</option>
+                    </select>
+                </div>
+
+                <button type="button" id="classify-button" class="controls">Clasificar</button>
+            </form>
+        </div>
+
+        <!-- Resultados de Clasificación -->
+        <div id="classification-results" class="classification-results" style="display: none;">
+            <h2>Resultados de Clasificación</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Estrato</th>
+                        <th>Ubicación</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Los resultados serán generados dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('classify-button').addEventListener('click', function() {
+            // Aquí iría la lógica para clasificar a los usuarios según los parámetros seleccionados
+
+            // Ejemplo de resultados de clasificación (debe ser reemplazado con datos reales)
+            const results = [
+                { name: 'Juan Pérez', age: 28, stratum: 3, location: 'Norte' },
+                { name: 'María López', age: 34, stratum: 2, location: 'Sur' },
+                { name: 'Carlos Gómez', age: 45, stratum: 4, location: 'Este' },
+                { name: 'Ana Martínez', age: 52, stratum: 5, location: 'Oeste' }
+            ];
+
+            // Mostrar los resultados en la tabla
+            const resultsBody = document.getElementById('results-body');
+            resultsBody.innerHTML = ''; // Limpiar resultados anteriores
+
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${result.name}</td><td>${result.age}</td><td>${result.stratum}</td><td>${result.location}</td>`;
+                resultsBody.appendChild(row);
+            });
+
+            // Mostrar el contenedor de resultados
+            document.getElementById('classification-results').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
+
