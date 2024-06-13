@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Campañas de Marketing</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        #stats-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group select, .form-group input, .form-group button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .stats-table th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            text-align: right;
+        }
+        .button-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        #comparison-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #f2f2f2;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <h1>Estadísticas de Campañas de Marketing</h1>
+    <div id="stats-container">
+        <div class="form-group">
+            <label for="campaign-select">Seleccionar Campaña</label>
+            <select id="campaign-select" onchange="mostrarEstadisticas()">
+                <option value="">Seleccione una campaña</option>
+                <option value="1">Campaña de Primavera</option>
+                <option value="2">Promoción de Verano</option>
+                <option value="3">Oferta de Otoño</option>
+                <option value="4">Rebajas de Invierno</option>
+            </select>
+        </div>
+
+        <table id="stats-table" class="stats-table">
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody id="stats-body">
+                <!-- Las estadísticas de la campaña se llenarán aquí -->
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <button onclick="mostrarComparacion()">Comparar con Campañas Anteriores</button>
+        </div>
+        
+        <div id="comparison-container">
+            <h2>Comparación con Campañas Anteriores</h2>
+            <table id="comparison-table" class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Campaña Actual</th>
+                        <th>Campaña Anterior</th>
+                    </tr>
+                </thead>
+                <tbody id="comparison-body">
+                    <!-- Las estadísticas comparativas se llenarán aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        var estadisticasCampañas = {
+            "1": { "Aperturas": "45%", "Clics": "10%", "Compras": "120", "Quejas": "3", "Correos Enviados": "2000" },
+            "2": { "Aperturas": "50%", "Clics": "12%", "Compras": "150", "Quejas": "2", "Correos Enviados": "2500" },
+            "3": { "Aperturas": "48%", "Clics": "11%", "Compras": "130", "Quejas": "4", "Correos Enviados": "2200" },
+            "4": { "Aperturas": "55%", "Clics": "15%", "Compras": "180", "Quejas": "1", "Correos Enviados": "3000" }
+        };
+
+        var estadisticasComparativas = {
+            "1": { "Aperturas": "40%", "Clics": "8%", "Compras": "100", "Quejas": "5", "Correos Enviados": "1800" },
+            "2": { "Aperturas": "45%", "Clics": "10%", "Compras": "130", "Quejas": "3", "Correos Enviados": "2000" },
+            "3": { "Aperturas": "48%", "Clics": "11%", "Compras": "130", "Quejas": "4", "Correos Enviados": "2200" }
+        };
+
+        function mostrarEstadisticas() {
+            var campaignId = document.getElementById('campaign-select').value;
+            var statsBody = document.getElementById('stats-body');
+
+            if (campaignId) {
+                var stats = estadisticasCampañas[campaignId];
+                statsBody.innerHTML = '';
+                for (var metrica in stats) {
+                    var row = `<tr><td>${metrica}</td><td>${stats[metrica]}</td></tr>`;
+                    statsBody.innerHTML += row;
+                }
+            } else {
+                statsBody.innerHTML = '<tr><td colspan="2">Seleccione una campaña para ver las estadísticas</td></tr>';
+            }
+
+            // Ocultar el contenedor de comparación si se selecciona otra campaña
+            document.getElementById('comparison-container').style.display = 'none';
+        }
+
+        function mostrarComparacion() {
+            var campaignId = document.getElementById('campaign-select').value;
+            var comparisonBody = document.getElementById('comparison-body');
+
+            if (campaignId) {
+                var statsActuales = estadisticasCampañas[campaignId];
+                var statsAnteriores = estadisticasComparativas[campaignId];
+
+                comparisonBody.innerHTML = '';
+                for (var metrica in statsActuales) {
+                    var row = `<tr><td>${metrica}</td><td>${statsActuales[metrica]}</td><td>${statsAnteriores ? statsAnteriores[metrica] : 'N/A'}</td></tr>`;
+                    comparisonBody.innerHTML += row;
+                }
+
+                document.getElementById('comparison-container').style.display = 'block';
+            }
+        }
+
+        // Inicializar la página
+        window.onload = function() {
+            mostrarEstadisticas();
+        };
+    </script>
+</body>
+</html>
+
+
