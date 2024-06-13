@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de Soporte con Clientes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .conversation-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .conversation-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .conversation-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .chat-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .message-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button-container {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .button-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat de Soporte con Clientes</h1>
+        
+        <div class="conversation-list" id="conversation-list">
+            <!-- Lista de conversaciones -->
+            <li onclick="openChat('Ana')">Hola, tengo una queja sobre un producto que compré.</li>
+            <li onclick="openChat('Juan')">Hola, quería sugerir una mejora en el servicio de atención al cliente.</li>
+            <li onclick="openChat('María')">Buenos días, tengo una consulta sobre el funcionamiento de un producto nuevo.</li>
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <!-- Aquí se mostrará el contenido del chat seleccionado -->
+            <p>Seleccione una conversación para comenzar.</p>
+        </div>
+
+        <textarea id="message-input" class="message-input" placeholder="Escribe tu mensaje..." rows="3"></textarea>
+
+        <div class="button-container">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        function openChat(cliente) {
+            var mensajeAleatorio = generarMensajeAleatorio(cliente);
+
+            var chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = `
+                <p><strong>Conversación con ${cliente}:</strong></p>
+                <div id="messages-${cliente}">
+                    <p><strong>${cliente}:</strong> ${mensajeAleatorio}</p>
+                </div>
+            `;
+        }
+
+        function generarMensajeAleatorio(cliente) {
+            var mensajes = {
+                'Ana': 'Estoy muy insatisfecha con la calidad del producto que compré, esperaba algo mejor.',
+                'Juan': 'Creo que podrían implementar un sistema de atención al cliente más ágil y eficiente.',
+                'María': 'Quisiera saber cómo configurar correctamente el nuevo producto que adquirí.'
+            };
+
+            return mensajes[cliente];
+        }
+
+        function sendMessage() {
+            var messageInput = document.getElementById('message-input');
+            var message = messageInput.value.trim();
+            messageInput.value = '';
+
+            var currentChat = document.querySelector('.chat-box > div');
+            if (currentChat) {
+                currentChat.innerHTML += `<p><strong>Empleado:</strong> ${message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
