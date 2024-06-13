@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Anuncio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .buttons {
+            text-align: center;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #2573D9;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .buttons button:hover {
+            background-color: #1E5799;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Crear Anuncio</h1>
+        </div>
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="template">Seleccionar Plantilla</label>
+                <select id="template" name="template">
+                    <option value="promocion">Promoción</option>
+                    <option value="nuevo_producto">Nuevo Producto</option>
+                    <option value="descuento_especial">Descuento Especial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="recipients">Seleccionar Destinatarios</label>
+                <select id="recipients" name="recipients" multiple>
+                    <option value="grupo1">Grupo 1</option>
+                    <option value="grupo2">Grupo 2</option>
+                    <option value="grupo3">Grupo 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Asunto</label>
+                <input type="text" id="subject" name="subject" placeholder="Asunto del anuncio">
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+            <div class="buttons">
+                <button type="button" onclick="preview()">Previsualizar</button>
+                <button type="submit">Guardar Anuncio</button>
+            </div>
+        </form>
+        <div id="preview-section" style="display:none;">
+            <h2>Previsualización del Anuncio</h2>
+            <div id="preview-content"></div>
+            <div class="buttons">
+                <button type="button" onclick="sendEmail()">Enviar Anuncio</button>
+                <button type="button" onclick="edit()">Editar Anuncio</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function preview() {
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            document.getElementById('preview-content').innerHTML = `
+                <h3>${subject}</h3>
+                <p>${message}</p>
+            `;
+
+            document.querySelector('form').style.display = 'none';
+            document.getElementById('preview-section').style.display = 'block';
+        }
+
+        function edit() {
+            document.querySelector('form').style.display = 'block';
+            document.getElementById('preview-section').style.display = 'none';
+        }
+
+        function sendEmail() {
+            alert('Anuncio enviado correctamente.');
+            // Aquí se implementaría la lógica para enviar el correo.
+        }
+    </script>
+</body>
+</html>
+
